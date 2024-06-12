@@ -5,7 +5,9 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    return res.json({ categorias: await prisma.categorias.findMany() });
+    return res.json({ categorias: await prisma.categorias.findMany({
+        include:{productos:true}
+    }) });
   } catch (error) {
     return res.status(500).json({ error: "Error al obtener las categorías" });
   }
