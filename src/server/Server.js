@@ -4,6 +4,8 @@ import cors from "cors";
 import adminRoutes from "../routes/admin.routes.js";
 import categoriasRoutes from "../routes/categorias.routes.js";
 import productoRoutes from "../routes/producto.routes.js";
+import reservacionesRoter from "../routes/reservaciones.routes.js"
+
 
 export class ServerApi {
   constructor() {
@@ -27,6 +29,8 @@ export class ServerApi {
     this.app.use("/API/admin", adminRoutes);
     this.app.use("/API/categorias",categoriasRoutes);
     this.app.use("/API/producto",productoRoutes);
+    this.app.use("/API/reservaciones",reservacionesRoter )
+    
   }
 
   listen() {

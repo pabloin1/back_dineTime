@@ -14,26 +14,59 @@ datasource db {
 }
 
 model Admin {
-  id        Int      @id @default(autoincrement())
+  id        String   @id
   nombre    String
   apellido  String
   correo    String   @unique
   password  String
-  createdAt DateTime
+  createdAt DateTime @default(now())
+  mesas     Mesas[]
 }
 
 model Producto {
-  id     Int    @id @default(autoincrement())
-  nombre String
-  precio Float
-  createdAt DateTime
-  categoria Categorias @relation(fields: [categoriaId], references: [id])
-  categoriaId Int
-  
+  id          String     @id
+  nombre      String
+  precio      Float
+  categoria   Categorias @relation(fields: [categoriaId], references: [id])
+  categoriaId String
+  createdAt   DateTime   @default(now())
+  ventas      Ventas[]
 }
 
 model Categorias {
-  id     Int    @id @default(autoincrement())
-  nombre String @unique
+  id        String     @id
+  nombre    String     @unique
   productos Producto[]
+}
+
+model Reservaciones {
+  id         String   @id
+  id_usuario String
+  fecha      String
+  hora       String
+  pago       Float
+  id_mesa    String
+  createdAt  DateTime @default(now())
+  mesa       Mesas    @relation(fields: [id_mesa], references: [id])
+}
+
+model Ventas {
+  id          Int    @id
+  id_producto String
+  cantidad    Int
+  precio_Fn   Float
+  id_mesa     String
+
+  mesa     Mesas    @relation(fields: [id_mesa], references: [id])
+  producto Producto @relation(fields: [id_producto], references: [id])
+}
+
+model Mesas {
+  id            String          @id
+  num_mesa      Int
+  num_sillas    Int
+  admin         Admin           @relation(fields: [id_admin], references: [id])
+  id_admin      String
+  reservaciones Reservaciones[]
+  ventas        Ventas[]
 }
