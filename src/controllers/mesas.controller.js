@@ -10,7 +10,7 @@ export const obtenerMesas = async (req, res) => {
 
 export const obtenerMesasId = async (req, res) => {
   try {
-    const mesa = await prisma.mesas.findUnique({
+    const mesa = await prisma.mesas.findFirst({
       where: { id: parseInt(req.params.id) },
     });
     if (!mesa) {
