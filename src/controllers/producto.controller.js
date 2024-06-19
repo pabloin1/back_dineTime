@@ -9,9 +9,6 @@ export const obtenerProductos = async (req, res) => {
 };
 
 export const obtenerProductoId = async (req, res) => {
-  if (isNaN(parseInt(req.params.id)))
-    return res.status(400).json({ error: "ID inválido" });
-
   try {
     const producto = await prisma.producto.findFirst({
       where: { id: parseInt(req.params.id) },
@@ -39,9 +36,6 @@ export const crearProducto = async (req, res) => {
 };
 
 export const eliminarProducto = async (req, res) => {
-  if (isNaN(parseInt(req.params.id)))
-    return res.status(400).json({ error: "ID inválido" });
-
   try {
     const producto = await prisma.producto.delete({
       where: { id: parseInt(req.params.id) },
@@ -53,12 +47,9 @@ export const eliminarProducto = async (req, res) => {
 };
 
 export const actualizarProducto = async (req, res) => {
-  if (isNaN(parseInt(req.params.id)))
-    return res.status(400).json({ error: "ID inválido" });
-
   try {
     const producto = await prisma.producto.update({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id },
       data: req.body,
     });
     return res.json(producto);

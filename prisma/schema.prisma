@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Admin {
-  id        String   @id
+  id        String   @id @default(uuid())
   nombre    String
   apellido  String
   correo    String   @unique
@@ -24,7 +24,7 @@ model Admin {
 }
 
 model Producto {
-  id          String     @id
+  id          String     @id @default(uuid())
   nombre      String
   precio      Float
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
@@ -34,13 +34,13 @@ model Producto {
 }
 
 model Categorias {
-  id        String     @id
+  id        String     @id @default(uuid())
   nombre    String     @unique
   productos Producto[]
 }
 
 model Reservaciones {
-  id         String   @id
+  id         String   @id @default(uuid())
   id_usuario String
   fecha      String
   hora       String
@@ -51,7 +51,7 @@ model Reservaciones {
 }
 
 model Ventas {
-  id          Int    @id
+  id          String   @id @default(uuid())
   id_producto String
   cantidad    Int
   precio_Fn   Float
@@ -62,7 +62,7 @@ model Ventas {
 }
 
 model Mesas {
-  id            String          @id
+  id            String          @id @default(uuid())
   num_mesa      Int
   num_sillas    Int
   admin         Admin           @relation(fields: [id_admin], references: [id])

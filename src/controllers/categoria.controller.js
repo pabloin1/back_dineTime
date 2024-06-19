@@ -15,7 +15,7 @@ export const obtenerCategorias = async (req, res) => {
 export const obtenerCategoriaId = async (req, res) => {
   try {
     const categoria = await prisma.categorias.findFirst({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id },
     });
     if (!categoria) {
       return res.status(404).json({ error: "Categoría no encontrada" });
@@ -38,7 +38,7 @@ export const crearCategoria = async (req, res) => {
 export const actualizarCategoria = async (req, res) => {
   try {
     const categoria = await prisma.categorias.update({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id},
       data: req.body,
     });
     return res.json(categoria);
@@ -50,7 +50,7 @@ export const actualizarCategoria = async (req, res) => {
 export const eliminarCategoria = async (req, res) => {
   try {
     const categoria = await prisma.categorias.delete({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id},
     });
     return res.json({ categoria });
   } catch (error) {

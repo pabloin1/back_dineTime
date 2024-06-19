@@ -11,7 +11,7 @@ export const obtenerMesas = async (req, res) => {
 export const obtenerMesasId = async (req, res) => {
   try {
     const mesa = await prisma.mesas.findFirst({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id },
     });
     if (!mesa) {
       return res.status(404).json({ error: "Mesa no encontrada" });
@@ -36,7 +36,7 @@ export const crearMesa = async (req, res) => {
 export const actualizarMesa = async (req, res) => {
   try {
     const mesaActualizada = await prisma.mesas.update({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id },
       data: req.body,
     });
     return res.json({ mesa: mesaActualizada });
@@ -48,7 +48,7 @@ export const actualizarMesa = async (req, res) => {
 export const eliminarMesa = async (req, res) => {
   try {
     await prisma.mesas.delete({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id },
     });
     return res.status(204).send();
   } catch (error) {

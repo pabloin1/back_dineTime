@@ -1,17 +1,51 @@
 import { Router } from "express";
-import { actualizarAdmin, crearAdmin, eliminarAdmin, obtenerAdminId, obtenerAdmins } from "../controllers/admin.controller.js";
-
+import {
+  actualizarAdmin,
+  crearAdmin,
+  eliminarAdmin,
+  obtenerAdminId,
+  obtenerAdmins,
+} from "../controllers/admin.controller.js";
+import { check } from "express-validator";
+import { validarCampos } from "../middlewares/validar-campos.js";
+import { emailExiste, existeAdminPorId } from "../helpers/db-validators.js";
 
 const router = Router();
 
-router.get("/",obtenerAdmins);
+router.get("/", obtenerAdmins);
 
-router.get("/:id", obtenerAdminId);
+router.get(
+  "/:id",
+  [check("id").custom(existeAdminPorId),validarCampos],
+  obtenerAdminId
+);
 
-router.post("/", crearAdmin);
+router.post(
+  "/",
+  [
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("correo", "El correo es obligatorio").not().isEmpty(),
+    check("password", "La contraseña es obligatoria").not().isEmpty(),
+    check("correo", "El correo debe de ser un correo valido").isEmail(),
+    check("password", "La contraseña debe ser mayor a 6 digitos").isLength(6),
+    check("correo").custom(emailExiste),
+    validarCampos,
+  ],
+  crearAdmin
+);
 
 router.delete("/:id", eliminarAdmin);
 
-router.put("/:id", actualizarAdmin);
+router.put(
+  "/:id",
+  check("nombre", "El nombre es obligatorio").not().isEmpty(),
+  check("correo", "El correo es obligatorio").not().isEmpty(),
+  check("password", "La contraseña es obligatoria").not().isEmpty(),
+  check("correo", "El correo debe de ser un correo valido").isEmail(),
+  check("password", "La contraseña debe ser mayor a 6 digitos").isLength(6),
+  check("correo").custom(emailExiste),
+  validarCampos,
+  actualizarAdmin
+);
 
 export default router;
