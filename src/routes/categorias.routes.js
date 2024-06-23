@@ -8,13 +8,20 @@ import {
 } from "../controllers/categoria.controller.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar-campos.js";
-import { categoriaExiste } from "../helpers/db-validators.js";
+import {
+  categoriaExiste,
+  existeCategorioPorID,
+} from "../helpers/db-validators.js";
 
 const router = Router();
 
 router.get("/", obtenerCategorias);
 
-router.get("/:id", obtenerCategoriaId);
+router.get(
+  "/:id",
+  [check("id").custom(existeCategorioPorID), validarCampos],
+  obtenerCategoriaId
+);
 
 router.post(
   "/",
@@ -26,8 +33,16 @@ router.post(
   crearCategoria
 );
 
-router.put("/:id", actualizarCategoria);
+router.put(
+  "/:id",
+  [check("id").custom(existeCategorioPorID), validarCampos],
+  actualizarCategoria
+);
 
-router.delete("/:id", eliminarCategoria);
+router.delete(
+  "/:id",
+  [check("id").custom(existeCategorioPorID), validarCampos],
+  eliminarCategoria
+);
 
 export default router;
