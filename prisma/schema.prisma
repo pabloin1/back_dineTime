@@ -42,8 +42,6 @@ model Categorias {
 model Reservaciones {
   id         String   @id @default(uuid())
   id_usuario String
-  fecha      String
-  hora       String
   pago       Float
   id_mesa    String
   createdAt  DateTime @default(now())
@@ -51,12 +49,11 @@ model Reservaciones {
 }
 
 model Ventas {
-  id          String   @id @default(uuid())
+  id          String @id @default(uuid())
   id_producto String
   cantidad    Int
   precio_Fn   Float
   id_mesa     String
-
   mesa     Mesas    @relation(fields: [id_mesa], references: [id])
   producto Producto @relation(fields: [id_producto], references: [id])
 }

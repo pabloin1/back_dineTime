@@ -1,5 +1,5 @@
 import { prisma } from "../database/db.js";
-import { v4 as uuidv4 } from "uuid";
+import bcryptjs from 'bcryptjs'
 
 export const obtenerAdmins = async (req, res) => {
   try {
@@ -26,11 +26,13 @@ export const obtenerAdminId = async (req, res) => {
 
 export const crearAdmin = async (req, res) => {
   const { nombre, apellido, correo, password } = req.body;
-  const id = uuidv4();
 
+  const contraHash = bcryptjs.hashSync(password)
+
+  
   try {
     const admin = await prisma.admin.create({
-      data: { id, nombre, apellido, correo, password },
+      data: {  nombre, apellido, correo, password: contraHash},
     });
     return res.json(admin);
   } catch (error) {

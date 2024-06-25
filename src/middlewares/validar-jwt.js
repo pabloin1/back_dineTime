@@ -1,7 +1,7 @@
-import { response, request } from 'express';
-import { verify } from 'jsonwebtoken';
+const { response, request } = require('express');
+const jwt = require('jsonwebtoken');
 
-import { findById } from '../models/usuario';
+const Usuario = require('../models/usuario');
 
 
 const validarJWT = async( req = request, res = response, next ) => {
@@ -16,10 +16,10 @@ const validarJWT = async( req = request, res = response, next ) => {
 
     try {
         
-        const { uid } = verify( token, process.env.SECRETORPRIVATEKEY );
+        const { uid } = jwt.verify( token, process.env.SECRETORPRIVATEKEY );
 
         // leer el usuario que corresponde al uid
-        const usuario = await findById( uid );
+        const usuario = await Usuario.findById( uid );
 
         if( !usuario ) {
             return res.status(401).json({
@@ -51,6 +51,6 @@ const validarJWT = async( req = request, res = response, next ) => {
 
 
 
-export default {
+module.exports = {
     validarJWT
 }
