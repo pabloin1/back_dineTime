@@ -21,6 +21,7 @@ model Admin {
   password  String
   createdAt DateTime @default(now())
   mesas     Mesas[]
+  apikey    ApiKey[]
 }
 
 model Producto {
@@ -49,13 +50,13 @@ model Reservaciones {
 }
 
 model Ventas {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   id_producto String
   cantidad    Int
   precio_Fn   Float
   id_mesa     String
-  mesa     Mesas    @relation(fields: [id_mesa], references: [id])
-  producto Producto @relation(fields: [id_producto], references: [id])
+  mesa        Mesas    @relation(fields: [id_mesa], references: [id])
+  producto    Producto @relation(fields: [id_producto], references: [id])
 }
 
 model Mesas {
@@ -66,4 +67,12 @@ model Mesas {
   id_admin      String
   reservaciones Reservaciones[]
   ventas        Ventas[]
+}
+
+model ApiKey {
+  id        String   @id @default(uuid())
+  key       String   @unique @default(cuid())
+  adminId   String
+  createdAt DateTime @default(now())
+  admin     Admin    @relation(fields: [adminId], references: [id])
 }

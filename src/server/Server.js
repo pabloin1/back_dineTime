@@ -6,6 +6,7 @@ import categoriasRoutes from "../routes/categorias.routes.js";
 import productoRoutes from "../routes/producto.routes.js";
 import reservacionesRoter from "../routes/reservaciones.routes.js"
 import authRouter from '../routes/auth.routes.js'
+import { validarApiKey } from "../middlewares/validar-ApiKey.js";
 
 export class ServerApi {
   constructor() {
@@ -23,6 +24,7 @@ export class ServerApi {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(bodyParser.json());
+    this.app.use(validarApiKey)
   }
 
   routes() {
