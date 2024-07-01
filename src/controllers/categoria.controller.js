@@ -26,6 +26,20 @@ export const obtenerCategoriaId = async (req, res) => {
   }
 };
 
+export const obtenerCategoriaTipo = async (req, res) => {
+  try {
+    const categoria = await prisma.categorias.findFirst({
+      where: { id:req.params.tipo },
+    });
+    if (!categoria) {
+      return res.status(404).json({ error: "Categoría no encontrada" });
+    }
+    return res.json({ categoria });
+  } catch (error) {
+    return res.status(500).json({ error: "Error al obtener la categoría" });
+  }
+};
+
 export const crearCategoria = async (req, res) => {
   try {
     const categoria = await prisma.categorias.create({ data: req.body });

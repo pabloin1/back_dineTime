@@ -37,6 +37,7 @@ model Producto {
 model Categorias {
   id        String     @id @default(uuid())
   nombre    String     @unique
+  tipo      String     @unique
   productos Producto[]
 }
 

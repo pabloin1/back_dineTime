@@ -23,6 +23,8 @@ router.get(
   obtenerCategoriaId
 );
 
+router.get("/obtenerTipo/:tipo", obtenerCategoriaId);
+
 router.post(
   "/",
   [
