@@ -16,6 +16,7 @@ export const obtenerCategoriaId = async (req, res) => {
   try {
     const categoria = await prisma.categorias.findFirst({
       where: { id:req.params.id },
+      include: { productos: true },
     });
     if (!categoria) {
       return res.status(404).json({ error: "Categoría no encontrada" });
@@ -30,6 +31,7 @@ export const obtenerCategoriaTipo = async (req, res) => {
   try {
     const categoria = await prisma.categorias.findFirst({
       where: { id:req.params.tipo },
+      include: { productos: true },
     });
     if (!categoria) {
       return res.status(404).json({ error: "Categoría no encontrada" });
