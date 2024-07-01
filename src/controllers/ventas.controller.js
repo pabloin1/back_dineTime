@@ -16,7 +16,7 @@ export const obtenerVentas = async (req, res) => {
 export const obtenerVentaId = async (req, res) => {
   const { id } = req.params;
   try {
-    const venta = await prisma.ventas.findUnique({ where: { id: parseInt(id, 10) } });
+    const venta = await prisma.ventas.findUnique({ where: { id} });
     return venta ? res.json({ venta }) : res.status(404).json({ error: "Venta no encontrada" });
   } catch (error) {
     handleError(res, "Error al obtener la venta")(error);

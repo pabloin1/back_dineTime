@@ -56,10 +56,13 @@ export const actualizarReservacion = async (req, res) => {
 
 export const eliminarReservacion = async (req, res) => {
   try {
-    await prisma.reservaciones.delete({
+    const reservacionEliminada = await prisma.reservaciones.delete({
       where: { id:req.params.id }
     });
-    return res.status(204).send();
+    return res.json({
+      msg:"reservacion cancelada",
+      reservacionEliminada
+    });
   } catch (error) {
     handleError(res, "Error al eliminar la reservación")(error);
   }

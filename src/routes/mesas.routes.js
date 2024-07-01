@@ -5,9 +5,9 @@ import {
   eliminarMesa,
   obtenerMesas,
   obtenerMesasId,
-} from "../controllers/mesas.controller";
+} from "../controllers/mesas.controller.js";
 import { check } from "express-validator";
-import { validarCampos } from "../middlewares/validar-campos";
+import { validarCampos } from "../middlewares/validar-campos.js";
 /*
 num_mesa      Int
 num_sillas    Int

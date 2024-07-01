@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { actualizarVenta, crearVenta, eliminarVenta, obtenerVentaId, obtenerVentas } from "../controllers/ventas.controller";
-import { validarCampos } from "../middlewares/validar-campos";
+import { actualizarVenta, crearVenta, eliminarVenta, obtenerVentaId, obtenerVentas } from "../controllers/ventas.controller.js";
+import { validarCampos } from "../middlewares/validar-campos.js";
 import { check } from "express-validator";
 
 const router = Router();
