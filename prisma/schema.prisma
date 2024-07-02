@@ -26,14 +26,13 @@ model Admin {
 model Mesero{
   id String @id @default(uuid())
   nombre String
-  
 }
 
 model Producto {
   id          String     @id @default(uuid())
   nombre      String
   precio      Float
-  tipo        String     @unique
+  tipo        String     
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
   categoriaId String
   createdAt   DateTime   @default(now())
