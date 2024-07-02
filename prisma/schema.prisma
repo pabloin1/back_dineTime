@@ -27,6 +27,7 @@ model Producto {
   id          String     @id @default(uuid())
   nombre      String
   precio      Float
+  tipo        String     @unique
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
   categoriaId String
   createdAt   DateTime   @default(now())
@@ -36,8 +37,7 @@ model Producto {
 model Categorias {
   id        String     @id @default(uuid())
   nombre    String     @unique
-  tipo      String     @unique
-  createdAt DateTime @default(now())
+  createdAt DateTime   @default(now())
   productos Producto[]
 }
 
@@ -56,7 +56,7 @@ model Ventas {
   cantidad    Int
   precio_Fn   Float
   id_mesa     String
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
   mesa        Mesas    @relation(fields: [id_mesa], references: [id])
   producto    Producto @relation(fields: [id_producto], references: [id])
 }
@@ -67,7 +67,7 @@ model Mesas {
   num_sillas    Int
   admin         Admin           @relation(fields: [id_admin], references: [id])
   id_admin      String
-  createdAt DateTime @default(now())
+  createdAt     DateTime        @default(now())
   reservaciones Reservaciones[]
   ventas        Ventas[]
 }
@@ -77,4 +77,3 @@ model ApiKey {
   key       String   @unique @default(cuid())
   createdAt DateTime @default(now())
 }
-
