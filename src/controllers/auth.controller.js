@@ -30,8 +30,9 @@ export const login = async (req, res = response) => {
     const token = await generarJWT(usuario.id);
 
     res.json({
-      usuario,
-      token,
+      correo:usuario.correo,
+      msg:'Inicio de sesión exitoso',
+      token
     });
   } catch (error) {
     console.log(error);
