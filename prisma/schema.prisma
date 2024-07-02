@@ -23,6 +23,12 @@ model Admin {
   mesas     Mesas[]
 }
 
+model Mesero{
+  id String @id @default(uuid())
+  nombre String
+  
+}
+
 model Producto {
   id          String     @id @default(uuid())
   nombre      String

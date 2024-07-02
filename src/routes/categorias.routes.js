@@ -11,6 +11,7 @@ import { validarCampos } from "../middlewares/validar-campos.js";
 import {
   categoriaExiste,
   existeCategorioPorID,
+  existePorId
 } from "../helpers/db-validators.js";
 
 const router = Router();
@@ -43,7 +44,12 @@ router.put(
 
 router.delete(
   "/:id",
-  [check("id").custom(existeCategorioPorID), validarCampos],
+  [
+    check("id").custom(existeCategorioPorID),
+    check("nombre", "El nombre de la categoria es obligatorio").not().isEmpty(),
+    check("nombre").custom(categoriaExiste),
+    validarCampos,
+  ],
   eliminarCategoria
 );
 

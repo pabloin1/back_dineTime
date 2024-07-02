@@ -6,6 +6,16 @@ export const emailExiste = async (correo = "") => {
   if (existeEmail) throw new Error(`El correo: ${correo}, ya está registrado`);
 };
 
+export const existePorId = (modelo) => {
+  return async (id) => {
+    const existe = await prisma[modelo].findUnique({ where: { id } });
+    if (!existe) {
+      throw new Error(`El id ${id} no existe en ${modelo}`);
+    }
+  };
+};
+
+
 export const categoriaExiste = async (nombre = "") => {
   const existeCategoria = await prisma.categorias.findUnique({
     where: { nombre },
@@ -29,7 +39,7 @@ export const existeCategorioPorID = async (id) => {
 };
 
 export const existeMesaPorId = async (id) => {
-  const existeMesa = await prisma.mesas.findUnique({ where: { id } });
+  const existeMesa = await prisma.findUnique({ where: { id } });
   if (!existeMesa) {
     throw new Error(`El id ${id} no existe`)
   }
