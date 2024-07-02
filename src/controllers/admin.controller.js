@@ -1,5 +1,5 @@
 import { prisma } from "../database/db.js";
-import bcryptjs from 'bcryptjs'
+import bcryptjs from "bcryptjs";
 
 export const obtenerAdmins = async (req, res) => {
   try {
@@ -14,11 +14,14 @@ export const obtenerAdmins = async (req, res) => {
 export const obtenerAdminId = async (req, res) => {
   try {
     const admin = await prisma.admin.findFirst({
-      where: { id:req.params.id},
+      where: { id: req.params.id },
     });
+
+    const { password, ...administrador } = admin;
+
     if (!admin)
       return res.status(404).json({ error: "Administrador no encontrado" });
-    return res.json({ admin });
+    return res.json({ administrador });
   } catch (error) {
     return res.status(500).json({ error: "Error al obtener el administrador" });
   }
@@ -27,12 +30,11 @@ export const obtenerAdminId = async (req, res) => {
 export const crearAdmin = async (req, res) => {
   const { nombre, apellido, correo, password } = req.body;
 
-  const contraHash = bcryptjs.hashSync(password)
+  const contraHash = bcryptjs.hashSync(password);
 
-  
   try {
     const admin = await prisma.admin.create({
-      data: {  nombre, apellido, correo, password: contraHash},
+      data: { nombre, apellido, correo, password: contraHash },
     });
     return res.json(admin);
   } catch (error) {
@@ -45,7 +47,7 @@ export const crearAdmin = async (req, res) => {
 export const eliminarAdmin = async (req, res) => {
   try {
     const admin = await prisma.admin.delete({
-      where: { id:req.params.id },
+      where: { id: req.params.id },
     });
     if (!admin)
       return res.status(404).json({ error: "Administrador no encontrado" });
@@ -60,7 +62,7 @@ export const eliminarAdmin = async (req, res) => {
 export const actualizarAdmin = async (req, res) => {
   try {
     const admin = await prisma.admin.update({
-      where: { id:req.params.id },
+      where: { id: req.params.id },
       data: req.body,
     });
     return res.json(admin);
