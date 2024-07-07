@@ -18,7 +18,6 @@ router.get("/:id", obtenerReservacionId);
 router.post(
   "/",
   [
-    check("id_usuario", "El id del usuario es necesario").notEmpty(),
     check("id_mesa", "la mesa de la reservacion es obligatoria").notEmpty(),
     check("pago", "El pago de la reservacion es obligatorio"),
     validarCampos,

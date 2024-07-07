@@ -23,16 +23,19 @@ model Admin {
   mesas     Mesas[]
 }
 
-model Mesero{
-  id String @id @default(uuid())
-  nombre String
+model Mesero {
+  id       String   @id @default(uuid())
+  nombre   String
+  apellido String
+  email    String   @unique
+  cuentas  Cuenta[]
 }
 
 model Producto {
   id          String     @id @default(uuid())
   nombre      String
   precio      Float
-  tipo        String     
+  tipo        String
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
   categoriaId String
   createdAt   DateTime   @default(now())
@@ -47,12 +50,16 @@ model Categorias {
 }
 
 model Reservaciones {
-  id         String   @id @default(uuid())
-  id_usuario String
-  pago       Float
-  id_mesa    String
-  createdAt  DateTime @default(now())
-  mesa       Mesas    @relation(fields: [id_mesa], references: [id])
+  id            String   @id @default(uuid())
+  nombre        String
+  apellido       String
+  email         String
+  phone         String
+  amoutOfpeople Int
+  pago          Float
+  id_mesa       String
+  createdAt     DateTime @default(now())
+  mesa          Mesas    @relation(fields: [id_mesa], references: [id])
 }
 
 model Ventas {
@@ -81,4 +88,13 @@ model ApiKey {
   id        String   @id @default(uuid())
   key       String   @unique @default(cuid())
   createdAt DateTime @default(now())
+}
+
+model Cuenta {
+  id        String   @id @default(uuid())
+  id_mesero String
+  total     Float
+  pagado    Boolean
+  createdAt DateTime @default(now())
+  mesero    Mesero   @relation(fields: [id_mesero], references: [id])
 }
