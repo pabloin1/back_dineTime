@@ -1,69 +1,54 @@
+// /routes/meseroRoutes.js
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { check } from 'express-validator';
+import { createMesero, getAllMeseros, getMeseroById, updateMesero, deleteMesero } from '../controllers/mesero.controller.js';
+import { validarCampos } from '../middlewares/validar-campos.js';
 
-const prisma = new PrismaClient();
 const router = Router();
 
-// Crear Mesero
-router.post('/', async (req, res) => {
-  try {
-    const mesero = await prisma.mesero.create({
-      data: req.body,
-    });
-    res.status(201).json(mesero);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
-});
+router.post(
+  '/',
+  [
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('apellido', 'El apellido es obligatorio').not().isEmpty(),
+    check('email', 'El correo debe ser válido').isEmail(),
+    check('position', 'La posición es obligatoria').not().isEmpty(),
+    validarCampos
+  ],
+  createMesero
+);
 
-// Obtener todos los Meseros
-router.get('/', async (req, res) => {
-  try {
-    const meseros = await prisma.mesero.findMany();
-    res.status(200).json(meseros);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
-});
+router.get('/', getAllMeseros);
 
-// Obtener un Mesero por ID
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const mesero = await prisma.mesero.findUnique({ where: { id } });
-    if (mesero) {
-      res.status(200).json(mesero);
-    } else {
-      res.status(404).json({ error: 'Mesero no encontrado' });
-    }
-  } catch (error) {
-    res.status(400).json({ error });
-  }
-});
+router.get(
+  '/:id',
+  [
+    check('id', 'ID inválido').isUUID(),
+    validarCampos
+  ],
+  getMeseroById
+);
 
-// Actualizar Mesero
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const mesero = await prisma.mesero.update({
-      where: { id },
-      data: req.body,
-    });
-    res.status(200).json(mesero);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
-});
+router.put(
+  '/:id',
+  [
+    check('id', 'ID inválido').isUUID(),
+    check('nombre', 'El nombre no puede estar vacío si se proporciona').optional().not().isEmpty(),
+    check('apellido', 'El apellido no puede estar vacío si se proporciona').optional().not().isEmpty(),
+    check('email', 'El correo debe ser válido').optional().isEmail(),
+    check('position', 'La posición no puede estar vacía si se proporciona').optional().not().isEmpty(),
+    validarCampos
+  ],
+  updateMesero
+);
 
-// Eliminar Mesero
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    await prisma.mesero.delete({ where: { id } });
-    res.status(204).send();
-  } catch (error) {
-    res.status(400).json({ error});
-  }
-});
+router.delete(
+  '/:id',
+  [
+    check('id', 'ID inválido').isUUID(),
+    validarCampos
+  ],
+  deleteMesero
+);
 
 export default router;
