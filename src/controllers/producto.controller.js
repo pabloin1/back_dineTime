@@ -2,7 +2,7 @@ import { prisma } from "../database/db.js";
 
 export const obtenerProductos = async (req, res) => {
   try {
-    return res.json({ productos: await prisma.producto.findMany() });
+    return res.json({ productos: await prisma.producto.findMany({where:{estado:true}}) });
   } catch (error) {
     return res.status(500).json({ error: "Error al obtener los productos" });
   }
@@ -11,7 +11,7 @@ export const obtenerProductos = async (req, res) => {
 export const obtenerProductoId = async (req, res) => {
   try {
     const producto = await prisma.producto.findFirst({
-      where: { id: parseInt(req.params.id) },
+      where: { id:req.params.id },
       include: {
         categoria: true,
       },
@@ -31,7 +31,8 @@ export const crearProducto = async (req, res) => {
     });
     return res.json(producto);
   } catch (error) {
-    return res.status(500).json({ error: "Error al crear el producto" });
+    console.log(error);
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -42,7 +43,7 @@ export const eliminarProducto = async (req, res) => {
     });
     return res.json({ producto });
   } catch (error) {
-    return res.status(500).json({ error: "Error al eliminar el producto" });
+    return res.status(500).json({ msg:error.message });
   }
 };
 
@@ -54,6 +55,6 @@ export const actualizarProducto = async (req, res) => {
     });
     return res.json(producto);
   } catch (error) {
-    return res.status(500).json({ error: "Error al actualizar el producto" });
+    return res.status(500).json({ msg:error.message});
   }
 };

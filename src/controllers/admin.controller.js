@@ -7,7 +7,7 @@ export const obtenerAdmins = async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ error: "Error al obtener los administradores" });
+      .json({msg:error.message });
   }
 };
 
@@ -23,7 +23,7 @@ export const obtenerAdminId = async (req, res) => {
       return res.status(404).json({ error: "Administrador no encontrado" });
     return res.json({ administrador });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener el administrador" });
+    return res.status(500).json({ msg:error.message });
   }
 };
 
@@ -55,7 +55,7 @@ export const eliminarAdmin = async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ error: "Error al eliminar el administrador" });
+      .json({ msg:error.message });
   }
 };
 
@@ -72,6 +72,6 @@ export const actualizarAdmin = async (req, res) => {
     }
     return res
       .status(500)
-      .json({ error: "Error al actualizar el administrador" });
+      .json({ msg:error.message });
   }
 };

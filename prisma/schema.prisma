@@ -37,6 +37,8 @@ model Producto {
   nombre      String
   precio      Float
   tipo        String
+  cantidad    Int
+  estado      Boolean @default(true)
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
   categoriaId String
   createdAt   DateTime   @default(now())
@@ -53,7 +55,7 @@ model Categorias {
 model Reservaciones {
   id            String   @id @default(uuid())
   nombre        String
-  apellido       String
+  apellido      String
   email         String
   phone         String
   amoutOfpeople Int
