@@ -8,6 +8,8 @@ import reservacionesRoter from "../routes/reservaciones.routes.js";
 import authRouter from "../routes/auth.routes.js";
 import ventasRouter from "../routes/ventas.routes.js";
 import mesasRouter from "../routes/mesas.routes.js";
+import meseroRoutes from "../routes/mesero.routes.js"
+import cuentaRoutes from "../routes/cuenta.routes.js"
 import { validarApiKey } from "../middlewares/validar-ApiKey.js";
 
 export class ServerApi {
@@ -37,6 +39,8 @@ export class ServerApi {
     this.app.use("/API/auth", authRouter);
     this.app.use("/API/ventas", ventasRouter);
     this.app.use("/API/mesas", mesasRouter);
+    this.app.use("/API/mesero",meseroRoutes)
+    this.app.use("/API/cuenta",cuentaRoutes)
   }
 
   listen() {

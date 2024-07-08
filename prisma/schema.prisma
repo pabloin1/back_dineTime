@@ -28,6 +28,7 @@ model Mesero {
   nombre   String
   apellido String
   email    String   @unique
+  position String
   cuentas  Cuenta[]
 }
 
