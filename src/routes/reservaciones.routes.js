@@ -20,6 +20,8 @@ router.post(
   [
     check("id_mesa", "la mesa de la reservacion es obligatoria").notEmpty(),
     check("pago", "El pago de la reservacion es obligatorio"),
+    check('dia','el dia de la reservacion es obligatorio').notEmpty(),
+    check('hora', 'la hora de la reservacion es obligatoria').notEmpty(),
     validarCampos,
   ],
   crearReservacion
@@ -33,6 +35,8 @@ router.put(
     check("id_usuario", "El id del usuario es necesario").notEmpty(),
     check("id_mesa", "la mesa de la reservacion es obligatoria").notEmpty(),
     check("pago", "El pago de la reservacion es obligatorio").notEmpty(),
+    check('dia','el dia de la reservacion es obligatorio').notEmpty(),
+    check('hora', 'la hora de la reservacion es obligatoria').notEmpty(),
     validarCampos,
   ],
   actualizarReservacion

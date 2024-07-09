@@ -8,7 +8,11 @@ import {
 } from "../controllers/admin.controller.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar-campos.js";
-import { emailExiste, existeAdminPorId,existePorId } from "../helpers/db-validators.js";
+import {
+  emailExiste,
+  existeAdminPorId,
+  existePorId,
+} from "../helpers/db-validators.js";
 
 const router = Router();
 
@@ -16,7 +20,7 @@ router.get("/", obtenerAdmins);
 
 router.get(
   "/:id",
-  [check("id").custom(existePorId('admin')),validarCampos],
+  [check("id").custom(existePorId("admin")), validarCampos],
   obtenerAdminId
 );
 
