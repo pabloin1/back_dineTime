@@ -38,9 +38,7 @@ export const crearAdmin = async (req, res) => {
     });
     return res.json(admin);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Error al crear el administrador", error });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -53,9 +51,7 @@ export const eliminarAdmin = async (req, res) => {
       return res.status(404).json({ error: "Administrador no encontrado" });
     return res.json({ admin });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ msg:error.message });
+    return res.status(500).json({msg:error.message});
   }
 };
 

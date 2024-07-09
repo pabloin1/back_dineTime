@@ -8,7 +8,7 @@ export const obtenerCategorias = async (req, res) => {
       }),
     });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener las categorías" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -26,7 +26,7 @@ export const obtenerCategoriaId = async (req, res) => {
     }
     return res.json({ productos });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener la categoría" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -41,7 +41,7 @@ export const obtenerCategoriaTipo = async (req, res) => {
     }
     return res.json({ categoria });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener la categoría" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -50,7 +50,7 @@ export const crearCategoria = async (req, res) => {
     const categoria = await prisma.categorias.create({ data: req.body });
     return res.json(categoria);
   } catch (error) {
-    return res.status(500).json({ error: "Error al crear la categoría" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -62,7 +62,7 @@ export const actualizarCategoria = async (req, res) => {
     });
     return res.json(categoria);
   } catch (error) {
-    return res.status(500).json({ error: "Error al actualizar la categoría" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -73,6 +73,6 @@ export const eliminarCategoria = async (req, res) => {
     });
     return res.json({ categoria });
   } catch (error) {
-    return res.status(500).json({ error: "Error al eliminar la categoría" });
+    return res.status(500).json({msg:error.message});
   }
 };

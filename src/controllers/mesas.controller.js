@@ -4,7 +4,7 @@ export const obtenerMesas = async (req, res) => {
   try {
     return res.json({ mesas: await prisma.mesas.findMany() });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener las mesas" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -18,7 +18,7 @@ export const obtenerMesasId = async (req, res) => {
     }
     return res.json({ mesa });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener la mesa" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -29,7 +29,7 @@ export const crearMesa = async (req, res) => {
     });
     return res.status(201).json({ mesa: nuevaMesa });
   } catch (error) {
-    return res.status(500).json({ error: "Error al crear la mesa" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -41,7 +41,7 @@ export const actualizarMesa = async (req, res) => {
     });
     return res.json({ mesa: mesaActualizada });
   } catch (error) {
-    return res.status(500).json({ error: "Error al actualizar la mesa" });
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -55,6 +55,6 @@ export const eliminarMesa = async (req, res) => {
      mesaEliminada
     });
   } catch (error) {
-    return res.status(500).json({ error: "Error al eliminar la mesa" });
+    return res.status(500).json({msg:error.message});
   }
 };
