@@ -58,7 +58,7 @@ model Reservaciones {
   apellido      String
   email         String
   phone         String
-  amoutOfpeople Int
+  amountOfPeople Int
   dia           String
   hora         String
   createdAt     DateTime @default(now())
