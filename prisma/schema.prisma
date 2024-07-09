@@ -60,11 +60,9 @@ model Reservaciones {
   phone         String
   amoutOfpeople Int
   pago          Float
-  id_mesa       String
   dia           String
   hora         String
   createdAt     DateTime @default(now())
-  mesa          Mesas    @relation(fields: [id_mesa], references: [id])
 }
 
 model Ventas {
@@ -85,7 +83,6 @@ model Mesas {
   admin         Admin           @relation(fields: [id_admin], references: [id])
   id_admin      String
   createdAt     DateTime        @default(now())
-  reservaciones Reservaciones[]
   ventas        Ventas[]
 }
 
