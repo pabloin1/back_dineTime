@@ -29,6 +29,7 @@ model Mesero {
   apellido String
   email    String   @unique
   position String
+  urlImg   String
   cuentas  Cuenta[]
 }
 
@@ -53,15 +54,15 @@ model Categorias {
 }
 
 model Reservaciones {
-  id            String   @id @default(uuid())
-  nombre        String
-  apellido      String
-  email         String
-  phone         String
+  id             String   @id @default(uuid())
+  nombre         String
+  apellido       String
+  email          String
+  phone          String
   amountOfPeople Int
-  dia           String
-  hora         String
-  createdAt     DateTime @default(now())
+  dia            String
+  hora           String
+  createdAt      DateTime @default(now())
 }
 
 model Ventas {
@@ -76,13 +77,13 @@ model Ventas {
 }
 
 model Mesas {
-  id            String          @id @default(uuid())
-  num_mesa      Int
-  num_sillas    Int
-  admin         Admin           @relation(fields: [id_admin], references: [id])
-  id_admin      String
-  createdAt     DateTime        @default(now())
-  ventas        Ventas[]
+  id         String   @id @default(uuid())
+  num_mesa   Int
+  num_sillas Int
+  admin      Admin    @relation(fields: [id_admin], references: [id])
+  id_admin   String
+  createdAt  DateTime @default(now())
+  ventas     Ventas[]
 }
 
 model ApiKey {
