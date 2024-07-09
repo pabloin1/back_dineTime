@@ -12,7 +12,7 @@ export const obtenerReservaciones = async (req, res) => {
     
     return res.json({ reservaciones:await prisma.reservaciones.findMany() });
   } catch (error) {
-    handleError(res, "Error al obtener las reservaciones")(error);
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -26,7 +26,7 @@ export const obtenerReservacionId = async (req, res) => {
     }
     return res.json({ reservacion });
   } catch (error) {
-    handleError(res, "Error al obtener la reservación")(error);
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -37,7 +37,7 @@ export const crearReservacion = async (req, res) => {
     });
     return res.status(201).json({ reservacion: nuevaReservacion });
   } catch (error) {
-    handleError(res, "Error al crear la reservación")(error);
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -50,7 +50,7 @@ export const actualizarReservacion = async (req, res) => {
     });
     return res.json({ reservacion: reservacionActualizada });
   } catch (error) {
-    handleError(res, "Error al actualizar la reservación")(error);
+    return res.status(500).json({msg:error.message});
   }
 };
 
@@ -64,6 +64,6 @@ export const eliminarReservacion = async (req, res) => {
       reservacionEliminada
     });
   } catch (error) {
-    handleError(res, "Error al eliminar la reservación")(error);
+    return res.status(500).json({msg:error.message});
   }
 };
