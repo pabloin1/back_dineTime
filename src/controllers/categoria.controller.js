@@ -67,6 +67,7 @@ export const actualizarCategoria = async (req, res) => {
 };
 
 export const eliminarCategoria = async (req, res) => {
+  //hola
   try {
     const categoria = await prisma.categorias.delete({
       where: { id: req.params.id },
