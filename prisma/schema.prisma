@@ -39,7 +39,6 @@ model Producto {
   nombre      String
   precio      Float
   tipo        String
-  cantidad    Int
   estado      Boolean    @default(true)
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
   categoriaId String

@@ -28,45 +28,16 @@ export const obtenerProductoId = async (req, res) => {
 
 export const crearProducto = async (req, res) => {
   try {
-    const { nombre, cantidad, ...rest } = req.body;
-
-    // Verificar si el producto ya existe
-    const productoExistente = await prisma.producto.findUnique({
-      where: {
-        nombre: nombre,
-      },
+    const producto = await prisma.producto.create({
+      data: req.body,
     });
-
-    if (productoExistente) {
-      // Incrementar la cantidad del producto existente
-      const productoActualizado = await prisma.producto.update({
-        where: {
-          id: productoExistente.id,
-        },
-        data: {
-          cantidad: productoExistente.cantidad + cantidad,
-        },
-      });
-      return res.json({
-        msg: "Cantidad del producto actualizada",
-        productoActualizado,
-      });
-    } else {
-      // Crear un nuevo producto
-      const nuevoProducto = await prisma.producto.create({
-        data: {
-          nombre,
-          cantidad,
-          ...rest,
-        },
-      });
-      return res.json(nuevoProducto);
-    }
+    return res.json(producto);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: error.message });
+    return res.status(500).json({msg:error.message});
   }
 };
+
 
 export const eliminarProducto = async (req, res) => {
   try {
