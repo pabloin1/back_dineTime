@@ -41,8 +41,9 @@ export const crearProducto = async (req, res) => {
 
 export const eliminarProducto = async (req, res) => {
   try {
-    const producto = await prisma.producto.delete({
+    const producto = await prisma.producto.update({
       where: { id: req.params.id },
+      data: { estado: false },
     });
     return res.json({ producto });
   } catch (error) {

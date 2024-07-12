@@ -10,7 +10,7 @@ const handleError = (res, message) => {
 export const obtenerReservaciones = async (req, res) => {
   try {
     
-    return res.json({ reservaciones:await prisma.reservaciones.findMany() });
+    return res.json({ reservaciones:await prisma.reservaciones.findMany({where:{estado:true}}) });
   } catch (error) {
     return res.status(500).json({msg:error.message});
   }
@@ -56,8 +56,9 @@ export const actualizarReservacion = async (req, res) => {
 
 export const eliminarReservacion = async (req, res) => {
   try {
-    const reservacionEliminada = await prisma.reservaciones.delete({
-      where: { id:req.params.id }
+    const reservacionEliminada = await prisma.reservaciones.update({
+      where: { id: req.params.id },
+      data: { estado: false },
     });
     return res.json({
       msg:"reservacion cancelada",

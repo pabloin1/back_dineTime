@@ -3,11 +3,14 @@ import bcryptjs from "bcryptjs";
 
 export const obtenerAdmins = async (req, res) => {
   try {
-    return res.json({ admins: await prisma.admin.findMany() });
+    const adminsActivos = await prisma.admin.findMany({
+      where: {
+        estado: true,
+      },
+    });
+    return res.json({ admins: adminsActivos });
   } catch (error) {
-    return res
-      .status(500)
-      .json({msg:error.message });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -23,7 +26,7 @@ export const obtenerAdminId = async (req, res) => {
       return res.status(404).json({ error: "Administrador no encontrado" });
     return res.json({ administrador });
   } catch (error) {
-    return res.status(500).json({ msg:error.message });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -38,20 +41,21 @@ export const crearAdmin = async (req, res) => {
     });
     return res.json(admin);
   } catch (error) {
-    return res.status(500).json({msg:error.message});
+    return res.status(500).json({ msg: error.message });
   }
 };
 
 export const eliminarAdmin = async (req, res) => {
   try {
-    const admin = await prisma.admin.delete({
+    const admin = await prisma.admin.update({
       where: { id: req.params.id },
+      data: { estado: false },
     });
     if (!admin)
       return res.status(404).json({ error: "Administrador no encontrado" });
     return res.json({ admin });
   } catch (error) {
-    return res.status(500).json({msg:error.message});
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -66,8 +70,6 @@ export const actualizarAdmin = async (req, res) => {
     if (error.code === "P2002") {
       return res.status(409).json({ error: "El correo ya está en uso" });
     }
-    return res
-      .status(500)
-      .json({ msg:error.message });
+    return res.status(500).json({ msg: error.message });
   }
 };

@@ -14,7 +14,7 @@ export const createMesero = async (req, res) => {
 
 export const getAllMeseros = async (req, res) => {
   try {
-    const meseros = await prisma.mesero.findMany();
+    const meseros = await prisma.mesero.findMany({where:{estado:true}});
     res.status(200).json(meseros);
   } catch (error) {
     return res.status(400).json({ error });
@@ -50,7 +50,10 @@ export const updateMesero = async (req, res) => {
 
 export const deleteMesero = async (req, res) => {
   try {
-    await prisma.mesero.delete({ where: { id : req.params.id} });
+    await prisma.mesero.update({
+      where: { id: req.params.id },
+      data: { estado: false },
+    });
     res.status(204).send();
   } catch (error) {
     return res.status(400).json({ error });

@@ -20,6 +20,7 @@ model Admin {
   correo    String   @unique
   password  String
   createdAt DateTime @default(now())
+  estado      Boolean    @default(true)
   mesas     Mesas[]
 }
 
@@ -30,6 +31,7 @@ model Mesero {
   email    String   @unique
   position String
   urlImg   String
+  estado      Boolean    @default(true)
   phone    String
   cuentas  Cuenta[]
 }
@@ -50,6 +52,7 @@ model Categorias {
   id        String     @id @default(uuid())
   nombre    String     @unique
   createdAt DateTime   @default(now())
+  estado      Boolean    @default(true)
   productos Producto[]
 }
 
@@ -62,6 +65,7 @@ model Reservaciones {
   amountOfPeople Int
   dia            String
   hora           String
+  estado      Boolean    @default(true)
   createdAt      DateTime @default(now())
 }
 
@@ -71,6 +75,7 @@ model Ventas {
   cantidad    Int
   precio_Fn   Float
   id_mesa     String
+  estado      Boolean    @default(true)
   createdAt   DateTime @default(now())
   mesa        Mesas    @relation(fields: [id_mesa], references: [id])
   producto    Producto @relation(fields: [id_producto], references: [id])
@@ -80,9 +85,11 @@ model Mesas {
   id         String   @id @default(uuid())
   num_mesa   Int
   num_sillas Int
-  admin      Admin    @relation(fields: [id_admin], references: [id])
+  
   id_admin   String
+  estado      Boolean    @default(true)
   createdAt  DateTime @default(now())
+  admin      Admin    @relation(fields: [id_admin], references: [id])
   ventas     Ventas[]
 }
 
@@ -97,6 +104,7 @@ model Cuenta {
   id_mesero String
   total     Float
   pagado    Boolean
+  estado      Boolean    @default(true)
   createdAt DateTime @default(now())
   mesero    Mesero   @relation(fields: [id_mesero], references: [id])
 }

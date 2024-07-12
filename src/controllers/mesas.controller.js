@@ -2,7 +2,7 @@ import { prisma } from "../database/db.js";
 
 export const obtenerMesas = async (req, res) => {
   try {
-    return res.json({ mesas: await prisma.mesas.findMany() });
+    return res.json({ mesas: await prisma.mesas.findMany({where:{estado:true}}) });
   } catch (error) {
     return res.status(500).json({msg:error.message});
   }
@@ -47,8 +47,9 @@ export const actualizarMesa = async (req, res) => {
 
 export const eliminarMesa = async (req, res) => {
   try {
-    const mesaEliminada = await prisma.mesas.delete({
-      where: { id:req.params.id }
+    const mesaEliminada = await prisma.mesas.update({
+      where: { id: req.params.id },
+      data: { estado: false },
     });
     return res.json({
       msg:'mesa eliminada correctamente',

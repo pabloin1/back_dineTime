@@ -4,6 +4,7 @@ export const obtenerCategorias = async (req, res) => {
   try {
     return res.json({
       categorias: await prisma.categorias.findMany({
+        where:{estado:true},
         include: { productos: true },
       }),
     });
@@ -67,10 +68,11 @@ export const actualizarCategoria = async (req, res) => {
 };
 
 export const eliminarCategoria = async (req, res) => {
-  //hola
+
   try {
-    const categoria = await prisma.categorias.delete({
+    const categoria = await prisma.categorias.update({
       where: { id: req.params.id },
+      data: { estado: false },
     });
     return res.json({ categoria });
   } catch (error) {
