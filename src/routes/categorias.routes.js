@@ -13,10 +13,11 @@ import {
   existeCategorioPorID,
   existePorId
 } from "../helpers/db-validators.js";
+import {validarJWT} from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
-router.get("/", obtenerCategorias);
+router.get("/",[validarJWT,validarCampos],obtenerCategorias);
 
 router.get(
   "/:id",

@@ -1,56 +1,48 @@
-const { response, request } = require('express');
-const jwt = require('jsonwebtoken');
+import { response, request } from 'express';
+import jwt from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client';
 
-const Usuario = require('../models/usuario');
+const prisma = new PrismaClient();
 
-
-const validarJWT = async( req = request, res = response, next ) => {
-
+export const validarJWT = async (req = request, res = response, next) => {
     const token = req.header('Authorization');
 
-    if ( !token ) {
+    if (!token) {
         return res.status(401).json({
             msg: 'No hay token en la petición'
         });
     }
 
     try {
-        
-        const { uid } = jwt.verify( token, process.env.SECRETORPRIVATEKEY );
+        const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
 
-        // leer el usuario que corresponde al uid
-        const usuario = await Usuario.findById( uid );
+        // Leer el administrador que corresponde al uid
+        const admin = await prisma.admin.findUnique({
+            where: {
+                id: uid
+            }
+        });
 
-        if( !usuario ) {
+        if (!admin) {
             return res.status(401).json({
-                msg: 'Token no válido - usuario no existe DB'
-            })
+                msg: 'Token no válido - admin no existe en DB'
+            });
         }
 
         // Verificar si el uid tiene estado true
-        if ( !usuario.estado ) {
+        if (!admin.estado) {
             return res.status(401).json({
-                msg: 'Token no válido - usuario con estado: false'
-            })
+                msg: 'Token no válido - admin con estado: false'
+            });
         }
-        
-        
-        req.usuario = usuario;
+
+        req.admin = admin;
         next();
 
     } catch (error) {
-
         console.log(error);
         res.status(401).json({
             msg: 'Token no válido'
-        })
+        });
     }
-
-}
-
-
-
-
-module.exports = {
-    validarJWT
-}
+};

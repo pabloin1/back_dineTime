@@ -67,12 +67,15 @@ export const actualizarCategoria = async (req, res) => {
   }
 };
 
+
 export const eliminarCategoria = async (req, res) => {
 
   try {
     const categoria = await prisma.categorias.update({
       where: { id: req.params.id },
-      data: { estado: false },
+      data:{
+        estado:false
+      }
     });
     return res.json({ categoria });
   } catch (error) {
