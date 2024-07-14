@@ -38,6 +38,7 @@ model Mesero {
 
 model Producto {
   id          String     @id @default(uuid())
+  urlimg String
   nombre      String
   precio      Float
   tipo        String
@@ -83,15 +84,14 @@ model Ventas {
 }
 
 model Mesas {
-  id         String @id @default(uuid())
+  id         String   @id @default(uuid())
   num_mesa   Int
   num_sillas Int
-
-  id_admin  String
-  estado    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  admin     Admin    @relation(fields: [id_admin], references: [id])
-  ventas    Ventas[]
+  id_admin   String
+  estado     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  admin      Admin    @relation(fields: [id_admin], references: [id])
+  ventas     Ventas[]
 }
 
 model ApiKey {
