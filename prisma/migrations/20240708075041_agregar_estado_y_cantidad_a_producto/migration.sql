@@ -6,5 +6,5 @@
 
 */
 -- AlterTable
-ALTER TABLE `producto` ADD COLUMN `cantidad` INTEGER NOT NULL,
+ALTER TABLE `Producto` ADD COLUMN `cantidad` INTEGER NOT NULL,
     ADD COLUMN `estado` BOOLEAN NOT NULL;

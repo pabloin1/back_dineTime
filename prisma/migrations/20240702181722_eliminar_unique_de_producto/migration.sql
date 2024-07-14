@@ -1,5 +1,5 @@
 -- DropIndex
-DROP INDEX `Producto_tipo_key` ON `producto`;
+DROP INDEX `Producto_tipo_key` ON `Producto`;
 
 -- CreateTable
 CREATE TABLE `Mesero` (

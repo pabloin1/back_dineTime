@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE `producto` MODIFY `puntaje` INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE `Producto` MODIFY `puntaje` INTEGER NOT NULL DEFAULT 0;

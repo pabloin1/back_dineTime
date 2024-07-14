@@ -1,20 +1,20 @@
 -- AlterTable
-ALTER TABLE `admin` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Admin` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
 
 -- AlterTable
-ALTER TABLE `categorias` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Categorias` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
 
 -- AlterTable
-ALTER TABLE `cuenta` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Cuenta` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
 
 -- AlterTable
-ALTER TABLE `mesas` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Mesas` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
 
 -- AlterTable
-ALTER TABLE `mesero` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Mesero` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
 
 -- AlterTable
-ALTER TABLE `reservaciones` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Reservaciones` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
 
 -- AlterTable
-ALTER TABLE `ventas` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE `Ventas` ADD COLUMN `estado` BOOLEAN NOT NULL DEFAULT true;

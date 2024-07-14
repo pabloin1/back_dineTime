@@ -6,5 +6,5 @@
 
 */
 -- AlterTable
-ALTER TABLE `reservaciones` DROP COLUMN `fecha`,
+ALTER TABLE `Reservaciones` DROP COLUMN `fecha`,
     ADD COLUMN `hora` VARCHAR(191) NOT NULL;

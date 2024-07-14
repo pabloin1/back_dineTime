@@ -7,13 +7,13 @@
 
 */
 -- DropIndex
-DROP INDEX `Categorias_tipo_key` ON `categorias`;
+DROP INDEX `Categorias_tipo_key` ON `Categorias`;
 
 -- AlterTable
-ALTER TABLE `categorias` DROP COLUMN `tipo`;
+ALTER TABLE `Categorias` DROP COLUMN `tipo`;
 
 -- AlterTable
-ALTER TABLE `producto` ADD COLUMN `tipo` VARCHAR(191) NOT NULL;
+ALTER TABLE `Producto` ADD COLUMN `tipo` VARCHAR(191) NOT NULL;
 
 -- CreateIndex
 CREATE UNIQUE INDEX `Producto_tipo_key` ON `Producto`(`tipo`);

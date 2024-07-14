@@ -6,7 +6,7 @@
 
 */
 -- AlterTable
-ALTER TABLE `reservaciones` DROP COLUMN `fecha`,
+ALTER TABLE `Reservaciones` DROP COLUMN `fecha`,
     DROP COLUMN `hora`;
 
 -- CreateTable

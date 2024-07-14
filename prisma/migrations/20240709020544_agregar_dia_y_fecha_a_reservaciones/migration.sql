@@ -6,5 +6,5 @@
 
 */
 -- AlterTable
-ALTER TABLE `reservaciones` ADD COLUMN `dia` VARCHAR(191) NOT NULL,
+ALTER TABLE `Reservaciones` ADD COLUMN `dia` VARCHAR(191) NOT NULL,
     ADD COLUMN `fecha` VARCHAR(191) NOT NULL;

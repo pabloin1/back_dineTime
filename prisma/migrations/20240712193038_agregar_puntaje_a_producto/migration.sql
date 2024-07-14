@@ -5,4 +5,4 @@
 
 */
 -- AlterTable
-ALTER TABLE `producto` ADD COLUMN `puntaje` INTEGER NOT NULL;
+ALTER TABLE `Producto` ADD COLUMN `puntaje` INTEGER NOT NULL;

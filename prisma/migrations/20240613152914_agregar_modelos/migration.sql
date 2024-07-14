@@ -7,21 +7,21 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `producto` DROP FOREIGN KEY `Producto_categoriaId_fkey`;
+ALTER TABLE `Producto` DROP FOREIGN KEY `Producto_categoriaId_fkey`;
 
 -- AlterTable
-ALTER TABLE `admin` DROP PRIMARY KEY,
+ALTER TABLE `Admin` DROP PRIMARY KEY,
     MODIFY `id` VARCHAR(191) NOT NULL,
     MODIFY `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     ADD PRIMARY KEY (`id`);
 
 -- AlterTable
-ALTER TABLE `categorias` DROP PRIMARY KEY,
+ALTER TABLE `Categorias` DROP PRIMARY KEY,
     MODIFY `id` VARCHAR(191) NOT NULL,
     ADD PRIMARY KEY (`id`);
 
 -- AlterTable
-ALTER TABLE `producto` DROP PRIMARY KEY,
+ALTER TABLE `Producto` DROP PRIMARY KEY,
     MODIFY `id` VARCHAR(191) NOT NULL,
     MODIFY `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     MODIFY `categoriaId` VARCHAR(191) NOT NULL,

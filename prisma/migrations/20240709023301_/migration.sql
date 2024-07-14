@@ -5,7 +5,7 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `reservaciones` DROP FOREIGN KEY `Reservaciones_id_mesa_fkey`;
+ALTER TABLE `Reservaciones` DROP FOREIGN KEY `Reservaciones_id_mesa_fkey`;
 
 -- AlterTable
-ALTER TABLE `reservaciones` DROP COLUMN `id_mesa`;
+ALTER TABLE `Reservaciones` DROP COLUMN `id_mesa`;

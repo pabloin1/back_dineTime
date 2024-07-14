@@ -7,6 +7,6 @@
 
 */
 -- AlterTable
-ALTER TABLE `reservaciones` DROP COLUMN `amoutOfpeople`,
+ALTER TABLE `Reservaciones` DROP COLUMN `amoutOfpeople`,
     DROP COLUMN `pago`,
     ADD COLUMN `amountOfPeople` INTEGER NOT NULL;

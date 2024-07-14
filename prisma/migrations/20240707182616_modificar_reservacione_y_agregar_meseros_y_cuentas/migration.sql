@@ -13,11 +13,11 @@
 
 */
 -- AlterTable
-ALTER TABLE `mesero` ADD COLUMN `apellido` VARCHAR(191) NOT NULL,
+ALTER TABLE `Mesero` ADD COLUMN `apellido` VARCHAR(191) NOT NULL,
     ADD COLUMN `email` VARCHAR(191) NOT NULL;
 
 -- AlterTable
-ALTER TABLE `reservaciones` DROP COLUMN `id_usuario`,
+ALTER TABLE `Reservaciones` DROP COLUMN `id_usuario`,
     ADD COLUMN `amoutOfpeople` INTEGER NOT NULL,
     ADD COLUMN `apelido` VARCHAR(191) NOT NULL,
     ADD COLUMN `email` VARCHAR(191) NOT NULL,

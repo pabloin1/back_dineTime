@@ -6,7 +6,7 @@
 
 */
 -- AlterTable
-ALTER TABLE `categorias` MODIFY `tipo` VARCHAR(191) NOT NULL;
+ALTER TABLE `Categorias` MODIFY `tipo` VARCHAR(191) NOT NULL;
 
 -- CreateIndex
 CREATE UNIQUE INDEX `Categorias_tipo_key` ON `Categorias`(`tipo`);

@@ -5,7 +5,7 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `apikey` DROP FOREIGN KEY `ApiKey_adminId_fkey`;
+ALTER TABLE `ApiKey` DROP FOREIGN KEY `ApiKey_adminId_fkey`;
 
 -- AlterTable
-ALTER TABLE `apikey` DROP COLUMN `adminId`;
+ALTER TABLE `ApiKey` DROP COLUMN `adminId`;
