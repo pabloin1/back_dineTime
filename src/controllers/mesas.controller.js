@@ -1,8 +1,10 @@
 import { prisma } from "../database/db.js";
 
 export const obtenerMesas = async (req, res) => {
+
   try {
-    return res.json({ mesas: await prisma.mesas.findMany({where:{estado:true}}) });
+    const mesa = await prisma.mesas.findMany({where:{estado:true}})
+    return res.json({  mesa  });
   } catch (error) {
     return res.status(500).json({msg:error.message});
   }
