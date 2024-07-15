@@ -16,9 +16,12 @@
     "@prisma/client": "^5.15.0",
     "api-key-generator": "^2.0.3",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "uuid": "^10.0.0"
   },
