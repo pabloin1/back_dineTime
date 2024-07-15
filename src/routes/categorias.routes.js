@@ -17,15 +17,15 @@ import {validarJWT} from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
-router.get("/",[validarJWT,validarCampos],obtenerCategorias);
+router.get("/",[validarCampos],obtenerCategorias);
 
 router.get(
   "/:id",
-  [check("id").custom(existeCategorioPorID),validarJWT, validarCampos],
+  [check("id").custom(existeCategorioPorID), validarCampos],
   obtenerCategoriaId
 );
 
-router.get("/obtenerTipo/:tipo",validarJWT, obtenerCategoriaId);
+router.get("/obtenerTipo/:tipo", obtenerCategoriaId);
 
 router.post(
   "/",
