@@ -33,9 +33,18 @@ export class ServerApi {
   }
 
   listen() {
-    this.app.listen(this.port, () => 
-      console.log(`Escuchando en el puerto ${this.port}`)
-    );
+    // Iniciar servidor HTTP
+    this.app.listen(this.port, () => {
+      console.log(`Escuchando en el puerto ${this.port}`);
+    });
 
+    const httpsOptions = {
+      key: fs.readFileSync(path.join(__dirname, '../../../etc/nginx/ssl/nginx-selfsigned.key')),
+      cert: fs.readFileSync(path.join(__dirname, '../../../etc/nginx/ssl/nginx-selfsigned.crt'))
+  };
+
+    https.createServer(httpsOptions, this.app).listen(this.httpsPort, () => {
+      console.log(`Server is running on https://your-ec2-public-dns:${this.httpsPort}`);
+    });
   }
 }

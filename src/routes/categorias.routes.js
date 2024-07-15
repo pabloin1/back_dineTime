@@ -32,7 +32,6 @@ router.post(
   [
     check("nombre", "El nombre de la categoria es obligatorio").not().isEmpty(),
     check("nombre").custom(categoriaExiste),
-    validarJWT,
     validarCampos,
   ],
   crearCategoria
