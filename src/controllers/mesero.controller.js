@@ -20,7 +20,7 @@ export const createMesero = async (req, res) => {
     res.status(201).json(mesero);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error });
+    return res.status(400).json({ msg:error.message });
   }
 };
 
@@ -29,7 +29,7 @@ export const getAllMeseros = async (req, res) => {
     const meseros = await prisma.mesero.findMany({where:{estado:true}});
     res.status(200).json(meseros);
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).json({ msg:error.message });
   }
 };
 
@@ -43,7 +43,7 @@ export const getMeseroById = async (req, res) => {
       res.status(404).json({ error: 'Mesero no encontrado' });
     }
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).json({ msg:error.message });
   }
 };
 
@@ -56,7 +56,7 @@ export const updateMesero = async (req, res) => {
     });
     res.status(200).json(mesero);
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).json({ msg:error.message });
   }
 };
 
@@ -68,6 +68,6 @@ export const deleteMesero = async (req, res) => {
     });
     res.status(204).send();
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).json({ msg:error.message });
   }
 };

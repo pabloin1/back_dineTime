@@ -38,7 +38,7 @@ export const obtenerProductoId = async (req, res) => {
       return res.status(404).json({ error: "Producto no encontrado" });
     return res.json({ producto });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener el producto" });
+    return res.status(500).json({msg:error.message });
   }
 };
 
