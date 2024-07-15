@@ -21,17 +21,18 @@ router.get("/",[validarJWT,validarCampos],obtenerCategorias);
 
 router.get(
   "/:id",
-  [check("id").custom(existeCategorioPorID), validarCampos],
+  [check("id").custom(existeCategorioPorID),validarJWT, validarCampos],
   obtenerCategoriaId
 );
 
-router.get("/obtenerTipo/:tipo", obtenerCategoriaId);
+router.get("/obtenerTipo/:tipo",validarJWT, obtenerCategoriaId);
 
 router.post(
   "/",
   [
     check("nombre", "El nombre de la categoria es obligatorio").not().isEmpty(),
     check("nombre").custom(categoriaExiste),
+    validarJWT,
     validarCampos,
   ],
   crearCategoria
@@ -39,7 +40,7 @@ router.post(
 
 router.put(
   "/:id",
-  [check("id").custom(existeCategorioPorID), validarCampos],
+  [check("id").custom(existeCategorioPorID),validarJWT, validarCampos],
   actualizarCategoria
 );
 
@@ -49,6 +50,7 @@ router.delete(
     check("id").custom(existeCategorioPorID),
     check("nombre", "El nombre de la categoria es obligatorio").not().isEmpty(),
     check("nombre").custom(categoriaExiste),
+    validarJWT,
     validarCampos,
   ],
   eliminarCategoria

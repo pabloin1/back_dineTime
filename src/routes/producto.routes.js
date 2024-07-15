@@ -10,14 +10,15 @@ import {
 } from "../controllers/producto.controller.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { check } from "express-validator";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
-router.get("/", obtenerProductos);
+router.get("/", validarJWT,obtenerProductos);
 
-router.get("/top-productos", topProducto);
+router.get("/top-productos",validarJWT, topProducto);
 
-router.get("/:id", obtenerProductoId);
+router.get("/:id",validarJWT, obtenerProductoId);
 
 router.post(
   "/",
@@ -25,12 +26,13 @@ router.post(
     check("nombre", "El nombre del producto es obligatorio").notEmpty(),
     check("precio", "El precio del producto es obligatorio").notEmpty(),
     check("categoriaId", "La categoria del producto es obligatoria").notEmpty(),
+    validarJWT,
     validarCampos,
   ],
   crearProducto
 );
 
-router.delete("/:id", eliminarProducto);
+router.delete("/:id", validarJWT,eliminarProducto);
 
 router.put(
   "/:id",
@@ -38,6 +40,7 @@ router.put(
     check("nombre", "El nombre del producto es obligatorio").notEmpty(),
     check("precio", "El precio del producto es obligatorio").notEmpty(),
     check("categoriaId", "La categoria del producto es obligatoria").notEmpty(),
+    validarJWT,
     validarCampos,
   ],
   actualizarProducto
@@ -45,7 +48,7 @@ router.put(
 
 router.put(
   "/puntaje/:id",
-  [check("puntaje", "El puntaje es obligatorio").notEmpty(), validarCampos],
+  [check("puntaje", "El puntaje es obligatorio").notEmpty(),validarJWT, validarCampos],
   modificarPuntaje
 );
 

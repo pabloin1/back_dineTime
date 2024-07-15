@@ -1,13 +1,25 @@
-// /controllers/meseroController.js
+
 import { prisma } from '../database/db.js';
+import bcryptjs from "bcryptjs";
 
 export const createMesero = async (req, res) => {
+  const { password, ...rest } = req.body;
+
   try {
+
+    const salt = bcryptjs.genSaltSync();
+    const hashedPassword = bcryptjs.hashSync(password, salt);
+
     const mesero = await prisma.mesero.create({
-      data: req.body,
+      data: {
+        ...rest,
+        password: hashedPassword,
+      },
     });
+
     res.status(201).json(mesero);
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ error });
   }
 };

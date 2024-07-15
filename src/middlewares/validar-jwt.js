@@ -1,8 +1,6 @@
 import { response, request } from 'express';
 import jwt from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../database/db.js';
 
 export const validarJWT = async (req = request, res = response, next) => {
     const token = req.header('Authorization');
@@ -16,27 +14,31 @@ export const validarJWT = async (req = request, res = response, next) => {
     try {
         const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
 
-        // Leer el administrador que corresponde al uid
-        const admin = await prisma.admin.findUnique({
-            where: {
-                id: uid
-            }
+        // Leer el administrador o mesero que corresponde al uid
+        let usuario = await prisma.admin.findUnique({
+            where: { id: uid }
         });
 
-        if (!admin) {
-            return res.status(401).json({
-                msg: 'Token no válido - admin no existe en DB'
+        if (!usuario) {
+            usuario = await prisma.mesero.findUnique({
+                where: { id: uid }
             });
+
+            if (!usuario) {
+                return res.status(401).json({
+                    msg: 'Token no válido - usuario no existe en DB'
+                });
+            }
         }
 
         // Verificar si el uid tiene estado true
-        if (!admin.estado) {
+        if (!usuario.estado) {
             return res.status(401).json({
-                msg: 'Token no válido - admin con estado: false'
+                msg: 'Token no válido - usuario con estado: false'
             });
         }
 
-        req.admin = admin;
+        req.usuario = usuario;
         next();
 
     } catch (error) {

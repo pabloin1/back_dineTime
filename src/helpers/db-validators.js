@@ -1,5 +1,7 @@
 import { prisma } from "../database/db.js";
 
+
+
 export const emailExiste = async (correo = "") => {
   // Verificar si el correo existe
   const existeEmail = await prisma.admin.findUnique({ where: { correo } });

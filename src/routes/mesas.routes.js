@@ -8,6 +8,7 @@ import {
 } from "../controllers/mesas.controller.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar-campos.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 /*
 num_mesa      Int
 num_sillas    Int
@@ -16,7 +17,7 @@ id_admin      String*/
 
 const router = Router();
 
-router.get("/", obtenerMesas);
+router.get("/", validarJWT,obtenerMesas);
 
 router.get("/:id", obtenerMesasId);
 
@@ -30,12 +31,13 @@ router.post(
     check("id_admin", "El administrador de la mesa es obligatorio")
       .not()
       .isEmpty(),
+      validarJWT,
     validarCampos,
   ],
   crearMesa
 );
 
-router.delete("/:id", eliminarMesa);
+router.delete("/:id", validarJWT,eliminarMesa);
 
 router.put(
   "/:id",
@@ -47,6 +49,7 @@ router.put(
     check("id_admin", "El administrador de la mesa es obligatorio")
       .not()
       .isEmpty(),
+      validarJWT,
     validarCampos,
   ],
   actualizarMesa

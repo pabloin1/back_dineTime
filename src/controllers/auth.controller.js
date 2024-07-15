@@ -42,48 +42,38 @@ export const login = async (req, res = response) => {
   }
 };
 
-export const googleSingIn = async (req, res = response) => {
-  const { id_token } = req.body;
+export const loginMesero = async (req, res = response) => {
+  const { email, password } = req.body;
 
   try {
-    const { correo, nombre, img } = await googleVerify(id_token);
-
-    let usuario = await findOne({ correo });
-
-    if (!usuario) {
-      //crear
-      const data = {
-        nombre,
-        correo,
-        password: ":p",
-        img,
-        google: true,
-      };
-
-      usuario = new Usuario(data);
-
-      await usuario.save();
+    // Verificar si el email existe
+    const mesero = await prisma.mesero.findUnique({ where: { email } });
+    if (!mesero) {
+      return res.status(400).json({
+        msg: "Usuario / Password no son correctos - email",
+      });
     }
 
-    //si el usuario esta en db
-    if (!usuario.estado) {
-        return res.status(401).json({
-            msg: "hable con el administrador, usuario bloqueado"
-        })
-       
+    // Verificar la contraseña
+    const validPassword = bcryptjs.compareSync(password, mesero.password);
+    if (!validPassword) {
+      return res.status(400).json({
+        msg: "Usuario / Password no son correctos - password",
+      });
     }
 
-    //generar jwt
-    const token = await generarJWT(usuario.id);
+    // Generar el JWT
+    const token = await generarJWT(mesero.id);
 
     res.json({
-      msg: "todo bien",
-      usuario,
+      email: mesero.email,
+      msg: 'Inicio de sesión exitoso',
       token
     });
   } catch (error) {
-    res.status(400).json({
-      error,
+    console.log(error);
+    res.status(500).json({
+      msg: "Hable con el administrador",
     });
   }
 };

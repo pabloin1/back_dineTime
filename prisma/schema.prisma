@@ -29,6 +29,7 @@ model Mesero {
   nombre   String
   apellido String
   email    String   @unique
+  password String
   position String
   urlImg   String
   estado   Boolean  @default(true)
@@ -38,7 +39,7 @@ model Mesero {
 
 model Producto {
   id          String     @id @default(uuid())
-  urlimg String
+  urlimg      String
   nombre      String
   precio      Float
   tipo        String

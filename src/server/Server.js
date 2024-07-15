@@ -37,13 +37,5 @@ export class ServerApi {
       console.log(`Escuchando en el puerto ${this.port}`)
     );
 
-    const options = {
-      key: fs.readFileSync('path/to/selfsigned.key'),
-      cert: fs.readFileSync('path/to/selfsigned.crt')
-    };
-
-    https.createServer(options, this.app).listen(this.httpsPort, () => {
-      console.log(`Server is running on https://your-ec2-public-dns`);
-    });
   }
 }

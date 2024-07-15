@@ -13,6 +13,7 @@ import {
   existeAdminPorId,
   existePorId,
 } from "../helpers/db-validators.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.get("/", obtenerAdmins);
 
 router.get(
   "/:id",
-  [check("id").custom(existePorId("admin")), validarCampos],
+  [check("id").custom(existePorId("admin")),validarJWT, validarCampos],
   obtenerAdminId
 );
 
@@ -38,7 +39,7 @@ router.post(
   crearAdmin
 );
 
-router.delete("/:id", eliminarAdmin);
+router.delete("/:id", validarJWT,eliminarAdmin);
 
 router.put(
   "/:id",
@@ -49,6 +50,7 @@ router.put(
   check("correo", "El correo debe de ser un correo valido").isEmail(),
   check("password", "La contraseña debe ser mayor a 6 digitos").isLength(6),
   check("correo").custom(emailExiste),
+  validarJWT,
   validarCampos,
   actualizarAdmin
 );
