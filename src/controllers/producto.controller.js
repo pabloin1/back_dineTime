@@ -6,7 +6,7 @@ export const obtenerProductos = async (req, res) => {
       productos: await prisma.producto.findMany({ where: { estado: true } }),
     });
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener los productos" });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -20,9 +20,7 @@ export const topProducto = async (req, res) => {
     });
     res.json(topProductos);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ocurrió un error al obtener los productos" });
+    return res.status(500).json({ msg: error.message });
   }
 }
 
