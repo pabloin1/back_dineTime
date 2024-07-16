@@ -31,6 +31,7 @@ export const login = async (req, res = response) => {
 
     res.json({
       correo:usuario.correo,
+      uid:usuario.id,
       msg:'Inicio de sesión exitoso',
       token
     });

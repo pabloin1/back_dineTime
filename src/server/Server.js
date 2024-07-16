@@ -1,12 +1,12 @@
-import https from 'https';
-import fs from 'fs';
-import path from 'path';
-import bodyParser from 'body-parser';
-import express from 'express';
-import cors from 'cors';
-import routes from '../routes/index.js';
-import { fileURLToPath } from 'url';
-import { validarApiKey } from '../middlewares/validar-ApiKey.js';
+import https from "https";
+import fs from "fs";
+import path from "path";
+import bodyParser from "body-parser";
+import express from "express";
+import cors from "cors";
+import routes from "../routes/index.js";
+import { fileURLToPath } from "url";
+import { validarApiKey } from "../middlewares/validar-ApiKey.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename);
@@ -32,7 +32,7 @@ export class ServerApi {
   }
 
   routes() {
-    routes.forEach(route => {
+    routes.forEach((route) => {
       this.app.use(route.path, route.router);
     });
   }
@@ -44,12 +44,18 @@ export class ServerApi {
     });
 
     const httpsOptions = {
-      key: fs.readFileSync(path.join(__dirname, '../../../etc/nginx/ssl/nginx-selfsigned.key')),
-      cert: fs.readFileSync(path.join(__dirname, '../../../etc/nginx/ssl/nginx-selfsigned.crt'))
-  };
+      key: fs.readFileSync(
+        path.join(__dirname, "../../../etc/nginx/ssl/nginx-selfsigned.key")
+      ),
+      cert: fs.readFileSync(
+        path.join(__dirname, "../../../etc/nginx/ssl/nginx-selfsigned.crt")
+      ),
+    };
 
     https.createServer(httpsOptions, this.app).listen(this.httpsPort, () => {
-      console.log(`Server is running on https://your-ec2-public-dns:${this.httpsPort}`);
+      console.log(
+        `Server is running on https://your-ec2-public-dns:${this.httpsPort}`
+      );
     });
   }
 }
