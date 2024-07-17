@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import { validarApiKey } from "../middlewares/validar-ApiKey.js";
 
 const __filename = fileURLToPath(import.meta.url);
-const _dirname = path.dirname(_filename);
+const __dirname = path.dirname(__filename);
 
 export class ServerApi {
   constructor() {
@@ -25,7 +25,14 @@ export class ServerApi {
   }
 
   middlewares() {
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        origin: "*", // Permite todas las solicitudes de cualquier origen
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+      })
+    );
     this.app.use(express.json());
     this.app.use(bodyParser.json());
     this.app.use(validarApiKey);
@@ -39,16 +46,16 @@ export class ServerApi {
 
   listen() {
     // Iniciar servidor HTTP
-    this.app.listen(this.port, () => {
-      console.log(`Escuchando en el puerto ${this.port}`);
-    });
+    // this.app.listen(this.port, () => {
+    //   console.log(`Escuchando en el puerto ${this.port}`);
+    // });
 
     const httpsOptions = {
       key: fs.readFileSync(
-        path.join(__dirname, "../../../etc/nginx/ssl/nginx-selfsigned.key")
+        path.join(__dirname, "../../../../etc/nginx/ssl/nginx-selfsigned.key")
       ),
       cert: fs.readFileSync(
-        path.join(__dirname, "../../../etc/nginx/ssl/nginx-selfsigned.crt")
+        path.join(__dirname, "../../../../etc/nginx/ssl/nginx-selfsigned.crt")
       ),
     };
 
