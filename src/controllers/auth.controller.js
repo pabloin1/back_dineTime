@@ -1,7 +1,7 @@
 import { response, request, json } from "express";
 import bcryptjs from "bcryptjs";
 
-import {prisma} from '../database/db.js'
+import { prisma } from "../database/db.js";
 
 import { generarJWT } from "../helpers/generar-jwt.js";
 //import { googleVerify } from "../helpers/google-verify.js";
@@ -11,7 +11,7 @@ export const login = async (req, res = response) => {
 
   try {
     // Verificar si el email existe
-    const usuario = await prisma.admin.findUnique({where:{correo}});
+    const usuario = await prisma.admin.findUnique({ where: { correo } });
     if (!usuario) {
       return res.status(400).json({
         msg: "Usuario / Password no son correctos - correo",
@@ -30,16 +30,14 @@ export const login = async (req, res = response) => {
     const token = await generarJWT(usuario.id);
 
     res.json({
-      correo:usuario.correo,
-      uid:usuario.id,
-      msg:'Inicio de sesión exitoso',
-      token
+      correo: usuario.correo,
+      uid: usuario.id,
+      msg: "Inicio de sesión exitoso",
+      token,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      msg: "Hable con el administrador",
-    });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -68,13 +66,10 @@ export const loginMesero = async (req, res = response) => {
 
     res.json({
       email: mesero.email,
-      msg: 'Inicio de sesión exitoso',
-      token
+      msg: "Inicio de sesión exitoso",
+      token,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      msg: "Hable con el administrador",
-    });
+    return res.status(500).json({ msg: error.message });
   }
 };
