@@ -32,12 +32,7 @@ export class ServerApi {
 
   middlewares() {
     this.app.use(
-      cors({
-        origin: "*", // Permite todas las solicitudes de cualquier origen
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-      })
+      cors()
     );
     this.app.use(express.json());
     this.app.use(bodyParser.json());
