@@ -3,6 +3,7 @@ import {
   actualizarMesa,
   crearMesa,
   eliminarMesa,
+  obtenerMesa,
   obtenerMesas,
   obtenerMesasId,
 } from "../controllers/mesas.controller.js";
@@ -18,6 +19,8 @@ id_admin      String*/
 const router = Router();
 
 router.get("/", validarJWT,obtenerMesas);
+
+router.get("/mesa", obtenerMesa);
 
 router.get("/:id", obtenerMesasId);
 

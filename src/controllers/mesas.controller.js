@@ -10,6 +10,18 @@ export const obtenerMesas = async (req, res) => {
   }
 };
 
+export const obtenerMesa = async (req, res) => {
+
+  try {
+    const mesa = await prisma.mesas.findMany({select:{id:true,num_mesa:true},where:{estado:true}})
+
+    return res.json({  mesa  });
+
+  } catch (error) {
+    return res.status(500).json({msg:error.message});
+  }
+};
+
 export const obtenerMesasId = async (req, res) => {
   try {
     const mesa = await prisma.mesas.findFirst({
