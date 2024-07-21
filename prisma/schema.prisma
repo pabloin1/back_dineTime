@@ -48,7 +48,6 @@ model Producto {
   categoria   Categorias @relation(fields: [categoriaId], references: [id])
   categoriaId String
   createdAt   DateTime   @default(now())
-  ventas      Ventas[]
 }
 
 model Categorias {
@@ -72,17 +71,6 @@ model Reservaciones {
   createdAt      DateTime @default(now())
 }
 
-model Ventas {
-  id          String   @id @default(uuid())
-  id_producto String
-  cantidad    Int
-  precio_Fn   Float
-  id_mesa     String
-  estado      Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  mesa        Mesas    @relation(fields: [id_mesa], references: [id])
-  producto    Producto @relation(fields: [id_producto], references: [id])
-}
 
 model Mesas {
   id         String   @id @default(uuid())
@@ -110,3 +98,13 @@ model Cuenta {
   createdAt DateTime @default(now())
   mesero    Mesero   @relation(fields: [id_mesero], references: [id])
 }
+
+model Ventas {
+  id          String   @id @default(uuid())
+  precio_Fn   Float
+  id_mesa     String
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  mesa        Mesas    @relation(fields: [id_mesa], references: [id])
+}
+

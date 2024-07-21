@@ -10,8 +10,6 @@ router.get("/", obtenerVentas);
 router.get("/:id", obtenerVentaId);
 
 router.post("/",[
-    check('id_producto','El producto es obligatorio').notEmpty(),
-    check('cantidad','La existencia del producto es obligatorio').notEmpty(),
     check('precio_Fn','El precio del producto es obligatorio').notEmpty(),
     check('id_mesa','La mesa en donde se dio la venta es obligatoria').notEmpty(),
     validarCampos
