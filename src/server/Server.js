@@ -51,10 +51,10 @@ export class ServerApi {
   }
 
   listen() {
-    // Iniciar servidor HTTP
-    this.app.listen(this.port, () => {
-      console.log(`Escuchando en el puerto ${this.port}`);
-    });
+    // // Iniciar servidor HTTP
+    // this.app.listen(this.port, () => {
+    //   console.log(`Escuchando en el puerto ${this.port}`);
+    // });
 
     // Iniciar servidor HTTPS
     https.createServer(this.httpsOptions, this.app).listen(this.httpsPort, () => {
