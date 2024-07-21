@@ -107,4 +107,3 @@ model Ventas {
   createdAt   DateTime @default(now())
   mesa        Mesas    @relation(fields: [id_mesa], references: [id])
 }
-
