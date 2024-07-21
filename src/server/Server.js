@@ -54,7 +54,7 @@ export class ServerApi {
     // });
 
     //Iniciar servidor HTTPS
-    https.createServer(this.port, this.app).listen(this.port, () => {
+    https.createServer(this.httpsOptions, this.app).listen(this.port, () => {
       console.log(
         `Server is running on https://dine-time-api-negocio.integrador.xyz`
       );

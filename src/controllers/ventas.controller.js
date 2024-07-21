@@ -1,7 +1,5 @@
 import { prisma } from "../database/db.js";
 
-
-
 export const obtenerVentas = async (req, res) => {
   try {
     return res.json({ ventas: await prisma.ventas.findMany({where:{estado:true}}) });
