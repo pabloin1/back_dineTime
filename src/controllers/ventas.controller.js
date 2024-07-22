@@ -21,15 +21,21 @@ export const obtenerVentaId = async (req, res) => {
 };
 
 export const crearVenta = async (req, res) => {
+  const { precio_Fn, id_mesa} = req.body;
+
   try {
     const nuevaVenta = await prisma.ventas.create({
-      data: req.body,
+      data: {
+        precio_Fn,
+        id_mesa
+      },
     });
     return res.status(201).json({ venta: nuevaVenta });
   } catch (error) {
-    return res.status(500).json({msg:error.message});
+    return res.status(500).json({ msg: error.message });
   }
 };
+
 
 export const actualizarVenta = async (req, res) => {
   try {
