@@ -6,6 +6,7 @@ import cors from "cors";
 import routes from "../routes/index.js";
 import { fileURLToPath } from "url";
 import { validarApiKey } from "../middlewares/validar-ApiKey.js";
+import fs from 'fs'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +38,7 @@ export class ServerApi {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(bodyParser.json());
-    //this.app.use(validarApiKey);
+    this.app.use(validarApiKey);
   }
 
   routes() {
@@ -48,9 +49,9 @@ export class ServerApi {
 
   listen() {
     // // // Iniciar servidor HTTP
-    // this.app.listen(this.port, () => {
-    //   console.log(`Escuchando en el puerto ${this.port}`);
-    // });
+// this.app.listen(this.port, () => {
+//   console.log(`Escuchando en el puerto ${this.port}`);
+// });
 
     // Iniciar servidor HTTPS
     https.createServer(this.httpsOptions, this.app).listen(this.port, () => {

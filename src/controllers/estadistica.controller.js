@@ -20,7 +20,7 @@ export const crearEstadistica = async (req, res) => {
 export const obtenerEstadisticas = async (req, res) => {
   try {
     const estadisticas = await prisma.estadistica.findMany();
-    return res.status(200).json({ estadisticas });
+    return res.status(200).json( estadisticas );
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
