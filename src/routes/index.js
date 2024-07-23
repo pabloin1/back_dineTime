@@ -7,6 +7,7 @@ import ventasRouter from "./ventas.routes.js";
 import mesasRouter from "./mesas.routes.js";
 import meseroRoutes from "./mesero.routes.js";
 import cuentaRoutes from "./cuenta.routes.js";
+import estadisticaRoutes from "./estadistica.routes.js"
 
 export default [
   { path: "/API/admin", router: adminRoutes },
@@ -17,5 +18,6 @@ export default [
   { path: "/API/ventas", router: ventasRouter },
   { path: "/API/mesas", router: mesasRouter },
   { path: "/API/mesero", router: meseroRoutes },
-  { path: "/API/cuenta", router: cuentaRoutes }
+  { path: "/API/cuenta", router: cuentaRoutes },
+  {path:"/API/estadistica",router:estadisticaRoutes}
 ];

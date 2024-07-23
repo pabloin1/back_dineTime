@@ -1,5 +1,4 @@
 import https from "https";
-import fs from "fs";
 import path from "path";
 import bodyParser from "body-parser";
 import express from "express";
@@ -38,7 +37,7 @@ export class ServerApi {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(bodyParser.json());
-    this.app.use(validarApiKey);
+    //this.app.use(validarApiKey);
   }
 
   routes() {
@@ -49,9 +48,9 @@ export class ServerApi {
 
   listen() {
     // // // Iniciar servidor HTTP
-    this.app.listen(this.port, () => {
-      console.log(`Escuchando en el puerto ${this.port}`);
-    });
+    // this.app.listen(this.port, () => {
+    //   console.log(`Escuchando en el puerto ${this.port}`);
+    // });
 
     // Iniciar servidor HTTPS
     https.createServer(this.httpsOptions, this.app).listen(this.port, () => {

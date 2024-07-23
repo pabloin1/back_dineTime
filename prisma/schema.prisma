@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
 }
 
 model Admin {
@@ -71,7 +71,6 @@ model Reservaciones {
   createdAt      DateTime @default(now())
 }
 
-
 model Mesas {
   id         String   @id @default(uuid())
   num_mesa   Int
@@ -100,10 +99,17 @@ model Cuenta {
 }
 
 model Ventas {
-  id          String   @id @default(uuid())
-  precio_Fn   Float
-  id_mesa     String
-  estado      Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  mesa        Mesas    @relation(fields: [id_mesa], references: [id])
+  id        String   @id @default(uuid())
+  precio_Fn Float
+  id_mesa   String
+  estado    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  mesa      Mesas    @relation(fields: [id_mesa], references: [id])
+}
+
+model Estadistica {
+  id        String   @id @default(uuid())
+  ocupacion Int
+  Total     Float
+  createdAt DateTime @default(now())
 }
